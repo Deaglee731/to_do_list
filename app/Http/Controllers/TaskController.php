@@ -7,8 +7,27 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function show(){
-        $data = Task::all();
-        return view('show',$data);
+    public function index(){
+
+        $tasks = Task::all();
+        
+        return view('tasks.index',['tasks'=>$tasks]);
+    }
+
+    public function store(Request $request){
+        $this->validate($request, [
+            'title' => 'required|max:50',
+            'description' => 'required|max:255',
+        ]);
+        $title  = $request->title;
+        $description = $request->description;
+        Task::create(['title' => $title,
+        'description' => $description,'user_id' => 3]);
+        return back();
+    }
+
+    public function destroy (Task $task){
+        $task->delete();
+        return back();
     }
 }
