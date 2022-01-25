@@ -22,12 +22,12 @@ class TaskController extends Controller
 
         $title  = $request->title;
         $description = $request->description;
-        $user_id = Auth::user()->id;
+        $userId = Auth::user()->id;
         
         Task::create([
         'title' => $title,
         'description' => $description,
-        'user_id' => $user_id]);
+        'user_id' => $userId]);
 
         return back();  
     }
